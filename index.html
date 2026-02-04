@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" style="background-color: #000; margin: 0; padding: 0;">
 <head>
     <meta charset="UTF-8">
     <title>Digital Klocka</title>
     <style>
+        /* Tar bort alla osynliga marginaler och ramar på ALLA element */
+        * {
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            outline: none !important;
+            box-sizing: border-box;
+        }
+
         body, html {
-            margin: 0;
-            padding: 0;
             height: 100%;
-            background-color: transparent; /* Bakgrundsfärg för skärmen */
+            width: 100%;
+            /* Viktigt: Använd en fast färg istället för transparent för att slippa genomlysning */
+            background-color: #000 !important; 
             display: flex;
-            align-items: center; /* Centrerar vertikalt */
-            justify-content: flex-start; /* Håller klockan till vänster */
+            align-items: center;
+            justify-content: flex-start;
             overflow: hidden;
         }
 
         #clock {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            font-size: 15vw; /* Justera denna för storleken på skärmen */
+            font-size: 20vw; /* Gjorde den lite större eftersom det bara är klockan */
             color: white;
             padding-left: 5vw;
             font-variant-numeric: tabular-nums;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            line-height: 1;
         }
     </style>
 </head>
