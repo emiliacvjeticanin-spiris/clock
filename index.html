@@ -4,35 +4,35 @@
     <meta charset="UTF-8">
     <title>Digital Klocka</title>
     <style>
-        /* Tar bort alla osynliga marginaler och ramar på ALLA element */
-        * {
-            margin: 0 !important;
-            padding: 0 !important;
-            border: none !important;
-            outline: none !important;
-            box-sizing: border-box;
-        }
+<style>
+    * {
+        margin: 0 !important;
+        padding: 0 !important;
+        outline: none !important;
+        border: none !important;
+        box-sizing: border-box;
+    }
 
-        body, html {
-            height: 100%;
-            width: 100%;
-            /* Viktigt: Använd en fast färg istället för transparent för att slippa genomlysning */
-            background-color: #000 !important; 
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            overflow: hidden;
-        }
+    html, body {
+        background-color: #000 !important;
+        /* Vi gör sidan 2 pixlar större än skärmen och döljer kanten */
+        width: calc(100% + 4px) !important;
+        height: calc(100% + 4px) !important;
+        margin: -2px !important; 
+        overflow: hidden !important;
+    }
 
-        #clock {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            font-size: 20vw; /* Gjorde den lite större eftersom det bara är klockan */
-            color: white;
-            padding-left: 5vw;
-            font-variant-numeric: tabular-nums;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-            line-height: 1;
-        }
+    #clock {
+        font-family: Arial, sans-serif;
+        font-size: 20vw;
+        color: white;
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        padding-left: 5vw;
+        font-variant-numeric: tabular-nums;
+    }
+</style>
     </style>
 </head>
 <body>
