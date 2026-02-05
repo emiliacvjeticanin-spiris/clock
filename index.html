@@ -13,18 +13,18 @@
         body {
             background-color: #000;
             color: white;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
             display: flex;
             overflow: hidden;
         }
 
-        /* VÄNSTERPANELEN - Justerad för att skala med skärmen */
+        /* VÄNSTERPANELEN */
         .sidebar {
-            width: 30vw; /* Tar alltid 30% av skärmens bredd */
-            min-width: 350px;
-            max-width: 500px;
-            padding: 4vh 3vw; /* Dynamisk padding baserat på höjd/bredd */
+            width: 25vw; /* Något smalare grundbredd */
+            min-width: 380px; /* Lite bredare min-width för att vädret ska få plats */
+            max-width: 450px; 
+            padding: 5vh 2.5rem; /* Fastare padding för bättre kontroll */
             display: flex;
             flex-direction: column;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
@@ -33,63 +33,63 @@
         }
 
         #date { 
-            font-size: clamp(1rem, 1.2vw, 1.5rem); 
+            font-size: clamp(0.9rem, 1vw, 1.2rem); 
             color: #aaa; 
             text-transform: uppercase; 
             margin-bottom: 0.5vh; 
+            letter-spacing: 1px;
         }
 
         #clock { 
-            /* Clamp ser till att klockan inte blir för liten eller för stor */
-            font-size: clamp(3rem, 6vw, 7rem); 
+            font-size: clamp(3.5rem, 5vw, 5.5rem); 
             font-weight: 700; 
-            margin-bottom: 2vh;
+            margin-bottom: 1.5vh;
             line-height: 1;
             font-variant-numeric: tabular-nums;
         }
 
+        /* Väder-fix: Tillåter widgeten att gå lite utanför sidebarens padding */
+        .weather-container {
+            margin: 1vh -1rem 2vh -1rem; 
+            min-height: 100px;
+        }
+
         .divider { 
             height: 1px; 
-            background: rgba(255,255,255,0.2); 
-            margin: 3vh 0; 
+            background: rgba(255,255,255,0.15); 
+            margin: 3.5vh 0; 
             width: 100%; 
         }
 
         .info-title { 
-            font-size: clamp(0.9rem, 1.1vw, 1.3rem); 
+            font-size: clamp(1rem, 1.2vw, 1.4rem); 
             font-weight: 800; 
-            margin-bottom: 1vh; 
+            margin-bottom: 1.2vh; 
             color: #fff;
         }
 
         .info-text {
-            font-size: clamp(0.8rem, 1vw, 1.1rem);
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.4;
+            font-size: clamp(0.9rem, 1vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
         }
 
         .tag { 
             display: inline-block; 
             background: #fff; 
             color: #000; 
-            padding: 0.5vh 1vw; 
+            padding: 6px 12px; 
             border-radius: 4px; 
-            font-weight: bold; 
+            font-weight: 800; 
             margin-top: 1.5vh;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
         }
 
-        /* HÖGERPANELEN - Bildspelet */
         .main-content {
             flex: 1;
             height: 100%;
-            background-color: #000;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+            background-color: #050505; /* Svagt ljusare för att se gränsen */
         }
     </style>
 </head>
@@ -99,9 +99,23 @@
         <div id="date">LADDAR...</div>
         <div id="clock">00:00:00</div>
         
-<div class="weather-container">
-<a class="weatherwidget-io" href="https://forecast7.com/sv/56d8814d81/vaxjo/" data-label_1="VÄXJÖ" data-font="Arial" data-mode="Current" data-days="3" data-accent="#ffffff" data-textcolor="#ffffff" data-highcolor="#ffffff" data-lowcolor="#ffffff" data-suncolor="#ffffff" data-mooncolor="#ffffff" data-cloudcolor="#ffffff" data-cloudfill="#ffffff" data-raincolor="#ffffff" data-snowcolor="#ffffff" >VÄXJÖ</a>
-    </div>
+        <div class="weather-container">
+            <a class="weatherwidget-io" 
+               href="https://forecast7.com/sv/56d8814d81/vaxjo/" 
+               data-label_1="VÄXJÖ" 
+               data-font="Arial" 
+               data-mode="Current" 
+               data-accent="#ffffff" 
+               data-textcolor="#ffffff" 
+               data-highcolor="#ffffff" 
+               data-lowcolor="#ffffff" 
+               data-suncolor="#ffffff" 
+               data-mooncolor="#ffffff" 
+               data-cloudcolor="#ffffff" 
+               data-cloudfill="#ffffff" 
+               data-raincolor="#ffffff" 
+               data-snowcolor="#ffffff">VÄXJÖ</a>
+        </div>
 
         <div class="divider"></div>
 
@@ -117,10 +131,11 @@
         <div class="info-block">
             <div class="info-title">SUPPORT 🤖</div>
             <p class="info-text"><strong>AI-ASSISTENTEN</strong></p>
-            <p class="info-text" style="color: #aaa;">Snabb hjälp inom IT, HR & Workplace.</p>
+            <p class="info-text" style="color: #888; margin-top: 4px;">Snabb hjälp inom IT, HR & Workplace.</p>
         </div>
     </div>
 
+    <div class="main-content"></div>
 
     <script>
         function updateAll() {
@@ -133,8 +148,11 @@
             const s = String(now.getSeconds()).padStart(2, '0');
             document.getElementById('clock').textContent = `${h}:${m}:${s}`;
         }
+        
         setInterval(updateAll, 1000);
         updateAll();
+
+        // Weather widget script
         !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
     </script>
 </body>
