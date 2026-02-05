@@ -1,57 +1,214 @@
 <!DOCTYPE html>
-<html lang="sv" style="background-color: #000; margin: 0; padding: 0;">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
-    <title>Digital Klocka</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontorsdashboard Premium</title>
     <style>
-<style>
-    * {
-        margin: 0 !important;
-        padding: 0 !important;
-        outline: none !important;
-        border: none !important;
-        box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    html, body {
-        background-color: #000 !important;
-        /* Vi gör sidan 2 pixlar större än skärmen och döljer kanten */
-        width: calc(100% + 4px) !important;
-        height: calc(100% + 4px) !important;
-        margin: -2px !important; 
-        overflow: hidden !important;
-    }
+        body {
+            background-color: #121212; /* Mörk bakgrund som i bilden */
+            color: white;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            padding: 60px; /* Ger luft runt hela innehållet */
+            overflow: hidden;
+        }
 
-    #clock {
-        font-family: Arial, sans-serif;
-        font-size: 20vw;
-        color: white;
-        display: flex;
-        align-items: center;
-        height: 100vh;
-        padding-left: 5vw;
-        font-variant-numeric: tabular-nums;
-    }
-</style>
+        .container {
+            width: 500px; /* Anpassad bredd för informationspelaren */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Tid & Väder Sektion --- */
+        .header-section {
+            margin-bottom: 40px;
+        }
+
+        #date {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        #clock {
+            font-size: 5.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 25px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .weather-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* --- Gemensam stil för informationsblock --- */
+        .section-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .info-block {
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .info-content {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #ffffff;
+            color: #000000;
+            padding: 6px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* --- Support / QR Sektion --- */
+        .support-box {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #0078d4;
+            border-radius: 15px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(0, 120, 212, 0.1);
+        }
+
+        /* En liten animerad "scanning" linje för effekt */
+        .qr-placeholder::after {
+            content: "";
+            position: absolute;
+            width: 80%;
+            height: 2px;
+            background: #0078d4;
+            box-shadow: 0 0 10px #0078d4;
+            animation: scan 3s infinite ease-in-out;
+        }
+
+        @keyframes scan {
+            0%, 100% { top: 20%; }
+            50% { top: 80%; }
+        }
+
+        .qr-text {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
-    <div id="clock">00:00:00</div>
+    <div class="container">
+        <div class="header-section">
+            <div id="date">Laddar...</div>
+            <div id="clock">00:00:00</div>
+            
+            <div class="weather-row">
+                <a class="weatherwidget-io" href="https://forecast7.com/sv/56d8814d81/vaxjo/" 
+                   data-label_1="VÄXJÖ" 
+                   data-font="Arial" 
+                   data-mode="Current" 
+                   data-theme="pure" 
+                   data-textcolor="#ffffff" >VÄXJÖ</a>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="info-block">
+            <div class="info-title">Mat & Café ☕</div>
+            <div class="info-content">
+                Onsdagar: 🍣 Sushi<br>
+                Café: Öppet 07:30 - 09:30
+            </div>
+            <div class="tag">Beställ senast kl. 10:00</div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="info-block">
+            <div class="info-title">Support 🤖</div>
+            <div class="info-content">
+                <strong>AI-ASSISTENTEN</strong><br>
+                Snabb hjälp inom IT, HR & Workplace.
+            </div>
+            
+            <div class="support-box">
+                <div class="qr-placeholder">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#0078d4" stroke-width="1.5">
+                        <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"></path>
+                        <rect x="7" y="7" width="3" height="3" fill="#0078d4"></rect>
+                        <rect x="14" y="7" width="3" height="3" fill="#0078d4"></rect>
+                        <rect x="7" y="14" width="3" height="3" fill="#0078d4"></rect>
+                    </svg>
+                </div>
+                <div class="qr-text">Skanna för att chatta direkt</div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        function update() {
+        function updateAll() {
             const now = new Date();
-            const time = now.toLocaleTimeString('sv-SE', {
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            document.getElementById('clock').textContent = time;
+            
+            // Datum (Torsdag 5 Februari)
+            const dateOptions = { weekday: 'long', day: 'numeric', month: 'long' };
+            let dateStr = now.toLocaleDateString('sv-SE', dateOptions);
+            document.getElementById('date').textContent = dateStr.toUpperCase();
+
+            // Klocka (13:41:09)
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${h}:${m}:${s}`;
         }
-        setInterval(update, 1000);
-        update();
+
+        setInterval(updateAll, 1000);
+        updateAll();
+
+        // Väder-script
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
     </script>
 </body>
 </html>
