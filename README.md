@@ -1,2 +1,2 @@
 # clock
-Clock host
+In use on screens
