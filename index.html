@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Info Banner</title>
+    <title>Responsive Info Banner</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* Grundinställningar - nu anpassningsbara */
         body {
             margin: 0;
             padding: 0;
-            width: 1920px;
-            height: 1080px;
+            width: 100vw; /* Använder 100% av view-width */
             background-color: #121212; 
             font-family: 'Inter', sans-serif;
-            overflow: hidden;
+            overflow-x: hidden; /* Förhindrar horisontell scroll */
         }
 
         #banner {
@@ -26,46 +26,52 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 60px;
+            padding: 0 4%; /* Använder procent för padding så det skalar */
             box-sizing: border-box;
-            border-bottom: 0px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            position: fixed; /* Låser bannern högst upp */
+            top: 0;
+            left: 0;
         }
 
         .info-group {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
+            min-width: 0; /* Förhindrar overflow i flexbox */
         }
 
         #time-container {
             display: flex;
             align-items: center;
-            font-size: 52px;
+            font-size: clamp(32px, 4vw, 52px); /* Texten skalar mellan 32px och 52px beroende på skärm */
             font-weight: 700;
             letter-spacing: -1px;
-        }
-
-        .separator {
-            padding: 0 2px;
+            white-space: nowrap;
         }
 
         #date {
-            font-size: 22px;
+            font-size: clamp(16px, 1.5vw, 22px); /* Skalbar text för datum */
             font-weight: 300;
             color: #ffffff;
-            padding-left: 25px;
+            padding-left: 20px;
             border-left: 1px solid rgba(255, 255, 255, 0.2);
             height: 30px;
             display: flex;
             align-items: center;
+            white-space: nowrap;
         }
 
-        /* Behållare för väder - lagt till bredd för att tvinga fram widgeten */
         .weather-wrapper {
+            flex-shrink: 1;
             min-width: 500px;
-            transform: scale(1.1);
-            transform-origin: right;
+            max-width: 400px;
+            /* Vi tar bort 'scale' här eftersom det kan trycka ut widgeten utanför kanten på mindre skärmar */
+        }
+
+        /* Om skärmen är väldigt smal (t.ex. stående läge), dölj datum för att få plats */
+        @media (max-width: 800px) {
+            #date { display: none; }
         }
     </style>
 </head>
@@ -80,7 +86,7 @@
         </div>
         
         <div class="weather-wrapper">
-            <a class="weatherwidget-io" href="https://forecast7.com/sv/56d8814d81/vaxjo/" data-label_1="VÄXJÖ" data-label_2="VÄDER" data-icons="Climacons Animated" data-mode="Current" data-theme="dark" data-basecolor="rgba(255, 255, 255, 0)" data-accent="rgba(255, 255, 255, 0)" >VÄXJÖ VÄDER</a>
+            <a class="weatherwidget-io" href="https://forecast7.com/sv/56d8814d81/vaxjo/" data-label_1="VÄXJÖ" data-label_2="VÄDER" data-icons="Climacons Animated" data-mode="Current" data-theme="dark" data-basecolor="rgba(0,0,0,0)" data-accent="rgba(0,0,0,0)" >VÄXJÖ VÄDER</a>
             <script>
             !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
             </script>
